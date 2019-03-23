@@ -1,0 +1,64 @@
+﻿<metro:MetroWindow x:Class="ColaApp.Client.LoginView"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:attachProps="clr-namespace:ColaApp.Client.AttachProperties"                   
+        xmlns:designVM="clr-namespace:ColaApp.Client.ViewModels.Design"
+        xmlns:vr="clr-namespace:ColaApp.Client.ValidationRules"
+        xmlns:baseVM="clr-namespace:ColaApp.Client.ViewModels.Base"
+        xmlns:VM="clr-namespace:ColaApp.Client.ViewModels"
+        xmlns:MDConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"                   
+        xmlns:local="clr-namespace:ColaApp.Client"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"        
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        d:DataContext="{x:Static designVM:LoginDesignViewModel.Instance}"
+                   xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+Dialog:DialogParticipation.Register="{Binding}"
+                   ShowDialogsOverTitleBar="False"
+                   >
+    <i:Interaction.Behaviors>
+        <baseVM:SetFocusOnValidationErrorBehavior />
+    </i:Interaction.Behaviors>
+
+    <!--<materialDesign:DialogHost Identifier="RootDialog" >-->
+        <Grid>
+            <PasswordBox
+      x:Name="PasswordBox"
+
+      materialDesign:HintAssist.Hint="Password" Margin="159,198,504,190"
+                    attachProps:PasswordBoxAssistant.BindPassword="true"  
+                    attachProps:PasswordBoxAssistant.BoundPassword="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+
+            <materialDesign:PackIcon Grid.Column="0" Kind="Account" Foreground="{Binding ElementName=CommentTextBox, Path=BorderBrush}" Margin="126,155,0,0" />
+
+            <TextBox x:Name="CommentTextBox"
+                    Text="{Binding Path=UserName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 
+                    materialDesign:HintAssist.Hint="Comment" Margin="159,142,526,247"
+                 >
+            </TextBox>
+            <materialDesign:PackIcon Grid.Column="0" Kind="Key" Foreground="{Binding BorderBrush, ElementName=CommentTextBox}" Margin="126,214,0,0" />
+
+            <Button Command="{Binding Path=LoginCommand}"     
+                materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsLoginRunning}"
+                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                Content="Login"
+                Margin="260,282,407,106" 
+
+      
+/>
+            <materialDesign:ColorZone
+      
+  Mode="PrimaryMid" Visibility="{Binding Source={x:Static VM:ViewModelLocator.ApplicationViewModel}, Path=ServerReachable, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
+  Padding="16" Margin="188,43,296,0">
+                <Label>网络暂不可用</Label>
+            </materialDesign:ColorZone>
+            <TextBlock Text="{Binding Source={x:Static VM:ViewModelLocator.ApplicationViewModel}, Path=ServerReachable}" HorizontalAlignment="Left" Margin="466,121,0,0" VerticalAlignment="Top"/>
+
+        </Grid>
+    <!--</materialDesign:DialogHost>-->
+</metro:MetroWindow>
