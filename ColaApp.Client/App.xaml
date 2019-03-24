@@ -28,9 +28,7 @@
                 <ResourceDictionary Source="Styles/AppResources/Colors.xaml" />
                 <!--#endregion-->
             </ResourceDictionary.MergedDictionaries>
-            <!-- 定义ViewModelLocator -->
-            <vm:ViewModelLocator xmlns:vm="clr-namespace:ColaApp.Client.ViewModels"
-                           x:Key="ViewModelLocator" />
+ 
         </ResourceDictionary>
     </Application.Resources>
 </Application>

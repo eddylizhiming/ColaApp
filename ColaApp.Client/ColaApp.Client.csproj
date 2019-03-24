@@ -142,6 +142,10 @@
     <Folder Include="Controls\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ColaApp.Client.Core\ColaApp.Client.Core.csproj">
+      <Project>{DD3B6C62-E8D9-497E-8D87-DAF05A60AB8D}</Project>
+      <Name>ColaApp.Client.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{aba10e4b-beda-45de-b15e-6eace37a460a}</Project>
       <Name>Utils</Name>

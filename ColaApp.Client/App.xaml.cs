@@ -51,7 +51,7 @@ namespace ColaApp.Client
             // Create a new endpoint watcher
             var httpWatcher = new HttpEndpointChecker(
                 // Checking fasetto.chat
-                Dna.FrameworkDI.Configuration["ServerConfig:HostUrl"],
+                Dna.FrameworkDI.Configuration["ServerConfig:CheckInternetUrl"],
                 // Every 1 seconds
                 interval: 1000,
                 // Pass in the DI logger

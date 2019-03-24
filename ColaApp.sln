@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColaApp.Client", "ColaApp.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils", "Utils\Utils.csproj", "{ABA10E4B-BEDA-45DE-B15E-6EACE37A460A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColaApp.Server", "ColaApp.Server\ColaApp.Server.csproj", "{1ACFA1CA-04DF-451F-85B4-81CDAFE235F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColaApp.Client.Core", "ColaApp.Client.Core\ColaApp.Client.Core.csproj", "{DD3B6C62-E8D9-497E-8D87-DAF05A60AB8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{ABA10E4B-BEDA-45DE-B15E-6EACE37A460A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABA10E4B-BEDA-45DE-B15E-6EACE37A460A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABA10E4B-BEDA-45DE-B15E-6EACE37A460A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ACFA1CA-04DF-451F-85B4-81CDAFE235F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ACFA1CA-04DF-451F-85B4-81CDAFE235F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ACFA1CA-04DF-451F-85B4-81CDAFE235F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ACFA1CA-04DF-451F-85B4-81CDAFE235F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD3B6C62-E8D9-497E-8D87-DAF05A60AB8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD3B6C62-E8D9-497E-8D87-DAF05A60AB8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD3B6C62-E8D9-497E-8D87-DAF05A60AB8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD3B6C62-E8D9-497E-8D87-DAF05A60AB8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

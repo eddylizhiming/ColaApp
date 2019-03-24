@@ -1,4 +1,6 @@
 ﻿using ColaApp.Client.ViewModels.Base;
+using Dna;
+using Fasetto.Word.Core;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MahApps.Metro.Controls.Dialogs;
@@ -50,6 +52,19 @@ namespace ColaApp.Client.ViewModels
             {
                 return;
             }
+
+            // Call the server and attempt to login with credentials
+            var result = await WebRequests.PostAsync<ApiResponse<UserProfileDetailsApiModel>>(
+                // Set URL
+                RouteHelpers.GetAbsoluteRoute(ApiRoutes.Login),
+                // Create api model
+                new LoginCredentialsApiModel
+                {
+                    UserName = this.UserName,
+                    Password = this.Password
+                });
+
+
 
             MetroDialogSettings dialogSettings = new MetroDialogSettings();
             var dictionary = new ResourceDictionary();
