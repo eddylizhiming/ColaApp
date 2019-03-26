@@ -1,4 +1,5 @@
-﻿using ColaApp.Client.ViewModels;
+﻿using ColaApp.Client.DataStore;
+using ColaApp.Client.ViewModels;
 using CommonServiceLocator;
 using Dna;
 using GalaSoft.MvvmLight.Ioc;
@@ -10,7 +11,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using static Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
+using static ColaApp.Client.DI.DI;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ColaApp.Client
 {
@@ -20,22 +22,26 @@ namespace ColaApp.Client
     public partial class App : Application
     {    
 
-        private void Application_Startup(object sender, StartupEventArgs e)
+        private async void Application_Startup(object sender, StartupEventArgs e)
         {
             // Setup the main application 
-            ApplicationSetup();
+            await ApplicationSetup();
 
             // Show the login window
             Current.MainWindow = new LoginView();
             Current.MainWindow.Show();
         }
 
-        private void ApplicationSetup()
+        private async Task ApplicationSetup()
         {            
             // Setup the Dna Framework
             Framework.Construct<DefaultFrameworkConstruction>()
                 .AddFileLogger()
+                .AddClientDataStore()
                 .Build();
+
+            // Ensure the client data store 
+            await ClientDataStore.EnsureDataStoreAsync();
 
             // Monitor for server connection status
             MonitorServerStatus();

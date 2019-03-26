@@ -1,4 +1,4 @@
-﻿namespace Fasetto.Word.Core
+﻿namespace ColaApp.Core
 {
     /// <summary>
     /// The result of a login request or get user profile details request via API
@@ -38,7 +38,7 @@
         #endregion
 
         #region Public Helper Methods
-
+    
 
         #endregion
     }

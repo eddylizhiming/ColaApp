@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ColaApp.Client.Core\ColaApp.Client.Core.csproj" />
+    <ProjectReference Include="..\ColaApp.Client.Core\ColaApp.Core.csproj" />
   </ItemGroup>
 
 </Project>
