@@ -1,5 +1,4 @@
 ﻿using Dna;
-using Fasetto.Word.Core;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Fasetto.Word.Web.Server

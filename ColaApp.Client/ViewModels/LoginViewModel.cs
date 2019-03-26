@@ -1,6 +1,7 @@
-﻿using ColaApp.Client.ViewModels.Base;
+﻿using ColaApp.Client.ExtensionMethods;
+using ColaApp.Client.ViewModels.Base;
+using ColaApp.Core;
 using Dna;
-using Fasetto.Word.Core;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MahApps.Metro.Controls.Dialogs;
@@ -53,47 +54,50 @@ namespace ColaApp.Client.ViewModels
                 return;
             }
 
-            // Call the server and attempt to login with credentials
-            var result = await WebRequests.PostAsync<ApiResponse<UserProfileDetailsApiModel>>(
-                // Set URL
-                RouteHelpers.GetAbsoluteRoute(ApiRoutes.Login),
-                // Create api model
-                new LoginCredentialsApiModel
-                {
-                    UserName = this.UserName,
-                    Password = this.Password
-                });
+            WebRequestResult<ApiResponse<UserProfileDetailsApiModel>> result = null;
+            await RunCommandAsync(() => IsLoginRunning, async () =>
+            {
+                // Call the server and attempt to login with credentials
+                result = await WebRequests.PostAsync<ApiResponse<UserProfileDetailsApiModel>>(
+                   // Set URL
+                   RouteHelpers.GetAbsoluteRoute(ApiRoutes.Login),
+                   // Create api model
+                   new LoginCredentialsApiModel
+                   {
+                       UserName = this.UserName,
+                       Password = this.Password
+                   });
 
-
-
-            MetroDialogSettings dialogSettings = new MetroDialogSettings();
-            var dictionary = new ResourceDictionary();
-            dictionary.Source = new Uri("pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Dialogs.xaml");
-            dialogSettings.SecondAuxiliaryButtonText = "sd";
-            dialogSettings.CustomResourceDictionary = dictionary;
-        
-            await dialogCoordinator.ShowMessageAsync(this, "HEADER", "MESSAGE", MessageDialogStyle.AffirmativeAndNegative, dialogSettings);
-            //show the dialog
-            //var result = await DialogHost.Show("dfdsfdsfds", "RootDialog", ClosingEventHandler);
-
-            ////check the result...
-            //Console.WriteLine("Dialog was closed, the CommandParameter used to close it was: " + (result ?? "NULL"));
-
-
-            await RunCommandAsync( ()=> IsLoginRunning, async () =>
-            {            
-                Console.WriteLine("test login...");
-                await Task.Delay(5000);
 
 
             });
 
 
-        }
 
-        private void ClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
-        {
-            Console.WriteLine("You can intercept the closing event, and cancel here.");
+            // If the response has an error...
+            if (await this.HandleErrorIfFailedAsync(result, "登录失败"))
+                // We are done
+                return;
+
+
+
+            // OK successfully logged in... now get users data
+            var loginResult = result.ServerResponse.ApiModel;
+
+            // Let the application view model handle what happens
+            // with the successful login
+            await ViewModelLocator.ApplicationViewModel.HandleSuccessfulLoginAsync(loginResult);
+
+            //MetroDialogSettings dialogSettings = new MetroDialogSettings();
+            //var dictionary = new ResourceDictionary();
+            //dictionary.Source = new Uri("pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Dialogs.xaml");
+            //dialogSettings.SecondAuxiliaryButtonText = "sd";
+            //dialogSettings.CustomResourceDictionary = dictionary;
+        
+            //await dialogCoordinator.ShowMessageAsync(this, "HEADER", "MESSAGE", MessageDialogStyle.AffirmativeAndNegative, dialogSettings);
+  
+
+
         }
     }
 }

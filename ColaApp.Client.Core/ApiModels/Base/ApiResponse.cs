@@ -1,4 +1,4 @@
-﻿namespace Fasetto.Word.Core
+﻿namespace ColaApp.Core
 {
     /// <summary>
     /// The response for all Web API calls made

@@ -60,6 +60,12 @@
     </ApplicationDefinition>
     <Compile Include="AttachProperties\PasswordAttachProperty.cs" />
     <Compile Include="DataModels\LoginCredentialsDataModel.cs" />
+    <Compile Include="DataStore\BaseClientDataStore.cs" />
+    <Compile Include="DataStore\ClientDataStoreDbContext.cs" />
+    <Compile Include="DataStore\FrameworkConstructionExtensions.cs" />
+    <Compile Include="DataStore\IClientDataStore.cs" />
+    <Compile Include="DI\DI.cs" />
+    <Compile Include="ExtensionMethods\UserProfileDetailsApiModelExtension.cs" />
     <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\Base\IValidatableViewModel.cs" />
@@ -142,9 +148,9 @@
     <Folder Include="Controls\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ColaApp.Client.Core\ColaApp.Client.Core.csproj">
+    <ProjectReference Include="..\ColaApp.Client.Core\ColaApp.Core.csproj">
       <Project>{DD3B6C62-E8D9-497E-8D87-DAF05A60AB8D}</Project>
-      <Name>ColaApp.Client.Core</Name>
+      <Name>ColaApp.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{aba10e4b-beda-45de-b15e-6eace37a460a}</Project>
@@ -171,6 +177,9 @@
     </PackageReference>
     <PackageReference Include="MaterialDesignThemes.MahApps">
       <Version>0.0.12</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
+      <Version>2.2.3</Version>
     </PackageReference>
     <PackageReference Include="MvvmLight">
       <Version>5.4.1.1</Version>
