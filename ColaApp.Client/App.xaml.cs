@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using static ColaApp.Client.DI.DI;
 using Microsoft.Extensions.DependencyInjection;
+using ColaApp.Client.Views;
 
 namespace ColaApp.Client
 {
@@ -24,11 +25,12 @@ namespace ColaApp.Client
 
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
+            //TODO cancel the comment
             // Setup the main application 
-            await ApplicationSetup();
+            //await ApplicationSetup();
 
             // Show the login window
-            Current.MainWindow = new LoginView();
+            Current.MainWindow = new CrawlerWindow();
             Current.MainWindow.Show();
         }
 

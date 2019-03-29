@@ -65,17 +65,22 @@
     <Compile Include="DataStore\FrameworkConstructionExtensions.cs" />
     <Compile Include="DataStore\IClientDataStore.cs" />
     <Compile Include="DI\DI.cs" />
+    <Compile Include="ExtensionMethods\ExpressionExtension.cs" />
     <Compile Include="ExtensionMethods\UserProfileDetailsApiModelExtension.cs" />
     <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\Base\IValidatableViewModel.cs" />
     <Compile Include="ViewModels\Base\SetFocusOnValidationErrorBehavior.cs" />
     <Compile Include="ViewModels\Base\ValidatableViewModelBase.cs" />
+    <Compile Include="ViewModels\CrawlerViewModel.cs" />
     <Compile Include="ViewModels\Design\LoginDesignViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBaseEx.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\CrawlerWindow.xaml.cs">
+      <DependentUpon>CrawlerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -102,6 +107,10 @@
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CrawlerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoginView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -165,6 +174,9 @@
       <Version>3.3.2</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.11.1</Version>
     </PackageReference>
     <PackageReference Include="MahApps.Metro">
       <Version>1.6.5</Version>
