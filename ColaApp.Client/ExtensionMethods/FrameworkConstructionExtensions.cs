@@ -1,9 +1,12 @@
-﻿using Dna;
+﻿using ColaApp.Client.DataStore;
+using ColaApp.Core.DI.Interfaces;
+using Dna;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ColaApp.Core.File;
 
-namespace ColaApp.Client.DataStore
+namespace ColaApp.Client.ExtensionMethods
 {
     /// <summary>
     /// Extension methods for the <see cref="FrameworkConstruction"/>
@@ -28,6 +31,23 @@ namespace ColaApp.Client.DataStore
                 provider => new BaseClientDataStore(provider.GetService<ClientDataStoreDbContext>()));
 
             // Return framework for chaining
+            return construction;
+        }
+
+
+        /// <summary>
+        /// Injects the Fasetto Word client application services needed
+        /// for the Fasetto Word application
+        /// </summary>
+        /// <param name="construction"></param>
+        /// <returns></returns>
+        public static FrameworkConstruction AddClientServices(this FrameworkConstruction construction)
+        {
+
+            // Bind a file manager
+            construction.Services.AddSingleton<IFileManager, BaseFileManager>();
+
+            // Return the construction for chaining
             return construction;
         }
     }

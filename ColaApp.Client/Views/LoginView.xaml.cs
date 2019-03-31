@@ -17,12 +17,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ColaApp.Client
+namespace ColaApp.Client.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class LoginView : MetroWindow
+    public partial class LoginView : BaseWindow
     {
         private LoginViewModel loginViewModel;
 

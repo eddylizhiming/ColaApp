@@ -59,13 +59,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AttachProperties\PasswordAttachProperty.cs" />
+    <Compile Include="DataModels\ChapterDataModel.cs" />
     <Compile Include="DataModels\LoginCredentialsDataModel.cs" />
     <Compile Include="DataStore\BaseClientDataStore.cs" />
     <Compile Include="DataStore\ClientDataStoreDbContext.cs" />
-    <Compile Include="DataStore\FrameworkConstructionExtensions.cs" />
     <Compile Include="DataStore\IClientDataStore.cs" />
     <Compile Include="DI\DI.cs" />
     <Compile Include="ExtensionMethods\ExpressionExtension.cs" />
+    <Compile Include="ExtensionMethods\FrameworkConstructionExtensions.cs" />
     <Compile Include="ExtensionMethods\UserProfileDetailsApiModelExtension.cs" />
     <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBaseEx.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\BaseWindow.cs" />
     <Compile Include="Views\CrawlerWindow.xaml.cs">
       <DependentUpon>CrawlerWindow.xaml</DependentUpon>
     </Compile>

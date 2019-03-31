@@ -18,13 +18,13 @@ namespace ColaApp.Client.Views
     /// <summary>
     /// Interaction logic for CrawlerWindow.xaml
     /// </summary>
-    public partial class CrawlerWindow : Window
+    public partial class CrawlerWindow : BaseWindow
     {
         private CrawlerViewModel crawlerViewModel;
 
         public CrawlerWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
             crawlerViewModel = new CrawlerViewModel();
             this.DataContext = crawlerViewModel;
         }

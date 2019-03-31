@@ -1,15 +1,29 @@
-﻿<Window x:Class="ColaApp.Client.Views.CrawlerWindow"
+﻿<local:BaseWindow x:Class="ColaApp.Client.Views.CrawlerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ColaApp.Client.Views"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="CrawlerWindow" Height="450" Width="800">
+        Title="小说爬取" Height="450" Width="800">
     <Grid>
-        <ProgressBar HorizontalAlignment="Left" Height="10" Margin="101,76,0,0" VerticalAlignment="Top" Width="515"/>
-        <ProgressBar HorizontalAlignment="Left" Height="10" Margin="101,134,0,0" VerticalAlignment="Top" Width="515"/>
-        <Button Content="Button" Command="{Binding DownloadCommand}"     HorizontalAlignment="Left" Margin="301,307,0,0" VerticalAlignment="Top" Width="75"/>
+
+        <ProgressBar HorizontalAlignment="Left" Minimum="0" Maximum="100" Value="{Binding Path=Progress, Mode=OneWay}" Height="10" Margin="104,78,0,0" VerticalAlignment="Top" Width="515"/>
+        <ToggleButton Content="Downloading" materialDesign:ToggleButtonAssist.OnContent="Cancel"  HorizontalAlignment="Left" Margin="216,318,0,0" VerticalAlignment="Top" Width="170" Style="{StaticResource MaterialDesignActionToggleButton}" Height="76">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Checked">
+                    <i:InvokeCommandAction Command="{Binding Path=DownloadCommand}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="Unchecked">
+                    <i:InvokeCommandAction Command="{Binding Path=CancelCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ToggleButton>
+        <TextBlock HorizontalAlignment="Left" Margin="133,145,0,0" TextWrapping="Wrap" Text="{Binding Path=Status}" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" Height="80" Margin="34,171,0,0" TextWrapping="Wrap" Text="{Binding Path=ErrorInfo, Mode=OneWay}" VerticalAlignment="Top" Width="482" BorderThickness="1"/>
+        <Button Content="Button" Command="{Binding Path=TestCommand}" HorizontalAlignment="Left" Margin="554,318,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
-</Window>
+</local:BaseWindow>
