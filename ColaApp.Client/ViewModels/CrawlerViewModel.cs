@@ -29,11 +29,11 @@ namespace ColaApp.Client.ViewModels
         /// <summary>
         /// 章节列表
         /// </summary>
-        public ObservableCollection<ChapterDataModel> chapters { get; private set; }
+        public ObservableCollection<ChapterDataModel> Chapters { get; protected set; }
         public ICommand DownloadCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         public ICommand TestCommand { get; set; }
-        public double Progress => 100 * ((this.chapters?.Count).GetValueOrDefault() == 0 ? 0 : (double)DownloadedCount / this.chapters.Count);
+        public double Progress => 100 * ((this.Chapters?.Count).GetValueOrDefault() == 0 ? 0 : (double)DownloadedCount / this.Chapters.Count);
         public string Status { get; private set; }
 
         public string ErrorInfo => sbErrorInfo.ToString();
@@ -91,9 +91,11 @@ namespace ColaApp.Client.ViewModels
                     HtmlDocument doc = await webClient.LoadFromWebAsync(bookUrl, Encoding.GetEncoding("gbk"), cts.Token);
                     novelName = doc.DocumentNode.SelectSingleNode("//h1").InnerText;
                     var node = doc.GetElementbyId("list");
-                    chapters = new ObservableCollection<ChapterDataModel>(node.SelectNodes(".//a[@href]").Select(o => new ChapterDataModel() { Url = websiteUrl + o.Attributes["href"].Value }));
+                    Chapters = new ObservableCollection<ChapterDataModel>(node.SelectNodes(".//a[@href]").Select(
+                        o => new ChapterDataModel() { Url = websiteUrl + o.Attributes["href"].Value , Title = o.InnerText})
+                    );
                     //添加需要下载的索引
-                    for (int i = 0; i < chapters.Count; i++)
+                    for (int i = 0; i < Chapters.Count; i++)
                     {
                         downloadingIndexs.Add(i);
                     }
@@ -103,7 +105,7 @@ namespace ColaApp.Client.ViewModels
                 }
                 catch (Exception e)
                 {
-                    CurrentError = $"获取章节列表错误";
+                    SetStatus($"获取章节列表错误");
                     Logger.LogErrorSource(CurrentError, exception: e);
                     return;
                 }
@@ -148,7 +150,7 @@ namespace ColaApp.Client.ViewModels
         {
             return Task.Run(()=>
             {
-                var inFiles = this.chapters.Where(o => o.IsDownloadOK).Select(o => o.SavedPath).ToArray();
+                var inFiles = this.Chapters.Where(o => o.IsDownloadOK).Select(o => o.SavedPath).ToArray();
                 FileManager.CombineFile(inFiles, novelPath);
             });
         }
@@ -168,10 +170,8 @@ namespace ColaApp.Client.ViewModels
                 ChapterDataModel currentChapter = null;
                 try
                 {
-                    HtmlDocument doc = await webClient.LoadFromWebAsync(chapters[chapterIndex].Url, Encoding.GetEncoding("gbk"), cts.Token);
-                    currentChapter = chapters[chapterIndex];
-                    //标题
-                    currentChapter.Title = doc.DocumentNode.SelectSingleNode("//div[@class='bookname']/h1").InnerText;
+                    HtmlDocument doc = await webClient.LoadFromWebAsync(Chapters[chapterIndex].Url, Encoding.GetEncoding("gbk"), cts.Token);
+                    currentChapter = Chapters[chapterIndex];
                     //获取正文内容
                     currentChapter.Content = HtmlEntity.DeEntitize(doc.GetElementbyId("content").InnerText);
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ColaApp.Client.DataModels
 {
-    class ChapterDataModel
+    public class ChapterDataModel : BaseDataModel
     {
         public string Title { get; set; }
         public string Url { get; set; }

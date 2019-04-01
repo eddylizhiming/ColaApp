@@ -6,12 +6,28 @@
         xmlns:local="clr-namespace:ColaApp.Client.Views"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:designVM="clr-namespace:ColaApp.Client.ViewModels.Design"
+        xmlns:localControls="clr-namespace:ColaApp.Client.Controls"
         mc:Ignorable="d"
-        Title="小说爬取" Height="450" Width="800">
+        Title="小说爬取" Height="450" Width="800"
+        d:DataContext="{x:Static designVM:CrawlerDesignViewModel.Instance}">
+
+    <local:BaseWindow.Resources>
+        <Style x:Key="WrapListBox" TargetType="ListBox">
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <localControls:VirtualizingWrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"></Setter>
+        </Style>
+    </local:BaseWindow.Resources>
     <Grid>
 
-        <ProgressBar HorizontalAlignment="Left" Minimum="0" Maximum="100" Value="{Binding Path=Progress, Mode=OneWay}" Height="10" Margin="104,78,0,0" VerticalAlignment="Top" Width="515"/>
-        <ToggleButton Content="Downloading" materialDesign:ToggleButtonAssist.OnContent="Cancel"  HorizontalAlignment="Left" Margin="216,318,0,0" VerticalAlignment="Top" Width="170" Style="{StaticResource MaterialDesignActionToggleButton}" Height="76">
+        <ProgressBar HorizontalAlignment="Left" Minimum="0" Maximum="100" Value="{Binding Path=Progress, Mode=OneWay}" Height="10" Margin="34,318,0,0" VerticalAlignment="Top" Width="515"/>
+        <ToggleButton Content="下载" materialDesign:ToggleButtonAssist.OnContent="取消"  HorizontalAlignment="Left" Margin="210,333,0,0" VerticalAlignment="Top" Width="140" Style="{StaticResource MaterialDesignActionToggleButton}" Height="62">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Checked">
                     <i:InvokeCommandAction Command="{Binding Path=DownloadCommand}"/>
@@ -21,9 +37,40 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ToggleButton>
-        <TextBlock HorizontalAlignment="Left" Margin="133,145,0,0" TextWrapping="Wrap" Text="{Binding Path=Status}" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" Height="80" Margin="34,171,0,0" TextWrapping="Wrap" Text="{Binding Path=ErrorInfo, Mode=OneWay}" VerticalAlignment="Top" Width="482" BorderThickness="1"/>
-        <Button Content="Button" Command="{Binding Path=TestCommand}" HorizontalAlignment="Left" Margin="554,318,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBlock HorizontalAlignment="Left" Margin="34,205,0,0" TextWrapping="Wrap" Text="{Binding Path=Status}" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" Height="68" Margin="34,240,0,0" TextWrapping="Wrap" Text="{Binding Path=ErrorInfo, Mode=OneWay}" VerticalAlignment="Top" Width="726" BorderThickness="1"/>
+        <Button Content="Button" Command="{Binding Path=TestCommand}" HorizontalAlignment="Left" Margin="548,348,0,0" VerticalAlignment="Top" Width="82"/>
+        <ListBox
+            SelectionMode="Extended"
+            Style="{StaticResource WrapListBox}"          
+            Margin="39,37,32,239"
+            ItemsSource="{Binding Path=Chapters}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <ToggleButton Grid.Column="0" Width="150" Style="{DynamicResource MetroFlatToggleButton}" >
+                            <TextBlock Text="{Binding Path=Title}" TextTrimming="CharacterEllipsis"/>
+                        </ToggleButton>
+                        
+                        <!--#region 进度指示-->
+                        <Grid Grid.Column="1" Margin="4,0,0,0" >
+                        <ProgressBar x:Name="PART_ProgressBar" Grid.Column="0"                            
+                            Style="{StaticResource MaterialDesignCircularProgressBar}"
+                            IsIndeterminate="True"  Visibility="{Binding Path=IsDownloadOK,Converter={StaticResource InvertedBooleanToVisibilityConverter}}"/>
+                            
+                            <materialDesign:PackIcon Kind="Check" VerticalAlignment="Center" Foreground="{Binding Foreground,ElementName=PART_ProgressBar}"
+                                                     Visibility="{Binding Path=IsDownloadOK,Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                     Width="{Binding Width,ElementName=PART_ProgressBar}"/>
+                        </Grid>
+                        <!--#endregion-->
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
 
+        </ListBox>
     </Grid>
 </local:BaseWindow>

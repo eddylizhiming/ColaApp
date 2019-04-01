@@ -59,6 +59,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AttachProperties\PasswordAttachProperty.cs" />
+    <Compile Include="Controls\VirtualizingWrapPanel.cs" />
+    <Compile Include="DataModels\BaseDataModel.cs" />
     <Compile Include="DataModels\ChapterDataModel.cs" />
     <Compile Include="DataModels\LoginCredentialsDataModel.cs" />
     <Compile Include="DataStore\BaseClientDataStore.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="ViewModels\Base\SetFocusOnValidationErrorBehavior.cs" />
     <Compile Include="ViewModels\Base\ValidatableViewModelBase.cs" />
     <Compile Include="ViewModels\CrawlerViewModel.cs" />
+    <Compile Include="ViewModels\Design\CrawlerDesignViewModel.cs" />
     <Compile Include="ViewModels\Design\LoginDesignViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -155,9 +158,7 @@
       <SubType>Designer</SubType>
     </Resource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ColaApp.Client.Core\ColaApp.Core.csproj">
       <Project>{DD3B6C62-E8D9-497E-8D87-DAF05A60AB8D}</Project>
