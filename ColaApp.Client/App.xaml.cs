@@ -30,7 +30,7 @@ namespace ColaApp.Client
             await ApplicationSetup();
 
             // Show the login window
-            Current.MainWindow = new CrawlerWindow();
+            Current.MainWindow = new LoginView();
             Current.MainWindow.Show();
         }
 
