@@ -25,3 +25,8 @@ namespace ColaApp.Core
         }
     }
 }
+
+public void Test()
+{
+    return;
+}
